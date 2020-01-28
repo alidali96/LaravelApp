@@ -3,11 +3,13 @@
 @section('title', 'Articles')
 
 @section('content')
-    <h1>All Articles</h1>
+    <h1 class="d-inline">All Articles</h1>
+    <a href="{{route('articles.create')}}" class="btn btn-primary float-right m-1">[+] Add New</a>
+    <div class="clearfix"></div>
 
     @foreach($articles as $article)
         <ul class="list-group" style="font-size: 1.2em">
-            <li class="list-group-item">ID: {{$article->id}}</li>
+            <li class="list-group-item  list-group-item-secondary">ID: {{$article->id}}</li>
             <li class="list-group-item">Name: <a
                     href="{{action('ArticleController@show', $article->id)}}">{{$article->name}}</a></li>
             <li class="list-group-item">Body: {{$article->body}}</li>
