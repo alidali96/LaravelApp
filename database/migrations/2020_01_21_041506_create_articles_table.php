@@ -12,7 +12,7 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('body');
+            $table->mediumText('body');
             $table->integer('author_id')->unsigned();
             $table->integer('category_id')->unsigned();
             $table->timestamps();

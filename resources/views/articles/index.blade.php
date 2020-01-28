@@ -4,12 +4,14 @@
 
 @section('content')
     <h1>All Articles</h1>
+
     @foreach($articles as $article)
-        <p>
-            ID: {{$article->id}}<br/>
-            Name: <a href="{{action('ArticleController@show', $article->id)}}">{{$article->name}}</a><br/>
-            Body: {{$article->body}}<br/>
-            Author: {{$article->author_id}}
-        </p>
+        <ul class="list-group" style="font-size: 1.2em">
+            <li class="list-group-item">ID: {{$article->id}}</li>
+            <li class="list-group-item">Name: <a
+                    href="{{action('ArticleController@show', $article->id)}}">{{$article->name}}</a></li>
+            <li class="list-group-item">Body: {{$article->body}}</li>
+            <li class="list-group-item"><small>Author: {{$article->author_id}}</small></li>
+        </ul><br/>
     @endforeach
 @endsection
