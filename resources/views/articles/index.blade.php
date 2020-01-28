@@ -11,7 +11,7 @@
             <li class="list-group-item">Name: <a
                     href="{{action('ArticleController@show', $article->id)}}">{{$article->name}}</a></li>
             <li class="list-group-item">Body: {{$article->body}}</li>
-            <li class="list-group-item"><small>Author: {{$article->author_id}}</small></li>
+            <li class="list-group-item"><small>Author: {{$article->author_id}}</small><a class="btn btn-success float-right" href="{{route('articles.show', $article->id)}}">Continue</a></li>
         </ul><br/>
     @endforeach
 @endsection
