@@ -9,7 +9,7 @@
 
     @foreach($articles as $article)
         <ul class="list-group" style="font-size: 1.2em">
-            <li class="list-group-item  list-group-item-secondary">ID: {{$article->id}}</li>
+            <li class="list-group-item  bg-dark text-light">ID: {{$article->id}}</li>
             <li class="list-group-item">Name: <a
                     href="{{action('ArticleController@show', $article->id)}}">{{$article->name}}</a></li>
             <li class="list-group-item">Body: {{$article->body}}</li>
