@@ -16,4 +16,5 @@
             <li class="list-group-item"><small>Author: {{$article->author_id}}</small><a class="btn btn-success float-right" href="{{route('articles.show', $article->id)}}">Continue</a></li>
         </ul><br/>
     @endforeach
+    {{$articles->links()}}
 @endsection

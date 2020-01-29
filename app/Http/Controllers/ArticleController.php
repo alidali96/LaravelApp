@@ -10,7 +10,8 @@ class ArticleController extends Controller
 {
     public function index() {
         $testing = "Passing data...";
-        $articles = DB::table('articles')->get();
+//        $articles = DB::table('articles')->get();
+        $articles = Article::paginate(2);
         return view('articles.index', compact('articles'));
     }
 
@@ -21,5 +22,9 @@ class ArticleController extends Controller
 
     public function create() {
         return view('articles.create');
+    }
+
+    public function store(Request $request) {
+
     }
 }

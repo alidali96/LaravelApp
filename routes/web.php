@@ -70,4 +70,5 @@ Route::get('/contact', function() {
 
 Route::get('/articles', 'ArticleController@index')->name('articles.index');
 Route::get('/articles/create', 'ArticleController@create')->name('articles.create');
+Route::post('/articles/create', 'ArticleController@store')->name('articles.store');
 Route::get('/articles/{article}', 'ArticleController@show')->name('articles.show');
