@@ -18,6 +18,9 @@
                     <a class="nav-link" href="{{action('ArticleController@index')}}">Articles</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{action('CategoryController@index')}}">Categories</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{route('about.show')}}">About me</a>
                 </li>
                 <li class="nav-item">

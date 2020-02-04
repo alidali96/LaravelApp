@@ -72,3 +72,7 @@ Route::get('/articles', 'ArticleController@index')->name('articles.index');
 Route::get('/articles/create', 'ArticleController@create')->name('articles.create');
 Route::post('/articles/create', 'ArticleController@store')->name('articles.store');
 Route::get('/articles/{article}', 'ArticleController@show')->name('articles.show');
+
+
+Route::get('/categories', 'CategoryController@index')->name('categories.index');
+Route::get('/categories/{id}', 'CategoryController@show')->name('categories.show');
