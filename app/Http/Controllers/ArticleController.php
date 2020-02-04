@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class ArticleController extends Controller
 {
+
     public function index() {
         $testing = "Passing data...";
 //        $articles = DB::table('articles')->get();
