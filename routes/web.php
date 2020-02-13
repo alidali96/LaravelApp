@@ -75,4 +75,7 @@ Route::get('/articles/{article}', 'ArticleController@show')->name('articles.show
 
 
 Route::get('/categories', 'CategoryController@index')->name('categories.index');
+Route::get('/categories/create', 'CategoryController@create')->name('categories.create');
+Route::post('/categories/create', 'CategoryController@store')->name('categories.store');
 Route::get('/categories/{id}', 'CategoryController@show')->name('categories.show');
+

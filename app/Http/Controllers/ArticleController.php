@@ -24,7 +24,8 @@ class ArticleController extends Controller
     }
 
     public function create() {
-        return view('articles.create');
+        $categories = Category::all()->pluck('name', 'id');
+        return view('articles.create', compact('categories'));
     }
 
     public function store(Request $request) {
@@ -32,17 +33,10 @@ class ArticleController extends Controller
             'name' => 'required',
             'body' => 'required'
         ]);
-
-
-        $article = new Article();
-        $article->name = $request->input('name');
-        $article->body = $request->input('body');
+        $category = Category::findOrFail($request->category_id);
+        $article = new Article($request->all());
         $article->author_id = 1;
-        $article->category_id = 1;
-        $article->save();
-//        dd($article);
-//        return redirect()->route('articles.show', ['article'=> $article->id]);
-        return Redirect::route('articles.show', ['article'=> $article->id]);
-
+        $article->category()->associate($category)->save();
+        return redirect()->route('articles.show', ['article'=> $article->id]);
     }
 }
