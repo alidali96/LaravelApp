@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Http\Requests\CategoryRequest;
 
-class CategoryController extends Controller
-{
+class CategoryController extends Controller {
+    public function __construct() {
+        $this->middleware('auth', ['only' => ['create', 'edit']]);
+    }
 
     public function index() {
         $categories = Category::paginate(5);

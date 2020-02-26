@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home.index');
+Route::get('/', 'HomeController@index')->name('welcome.index');
+
+Route::get('/home2', 'HomeController@index')->name('home2.index');
 
 //Route::get('/', function () {
 //    return view('welcome');
@@ -82,3 +84,7 @@ Route::get('/categories/{id}/edit', 'CategoryController@edit')->name('categories
 Route::patch('/categories/{id}', 'CategoryController@update')->name('categories.update');
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
