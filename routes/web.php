@@ -78,4 +78,7 @@ Route::get('/categories', 'CategoryController@index')->name('categories.index');
 Route::get('/categories/create', 'CategoryController@create')->name('categories.create');
 Route::post('/categories/create', 'CategoryController@store')->name('categories.store');
 Route::get('/categories/{id}', 'CategoryController@show')->name('categories.show');
+Route::get('/categories/{id}/edit', 'CategoryController@edit')->name('categories.edit');
+Route::patch('/categories/{id}', 'CategoryController@update')->name('categories.update');
+
 

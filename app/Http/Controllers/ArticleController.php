@@ -7,6 +7,7 @@ use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
 
 class ArticleController extends Controller
 {
@@ -38,5 +39,18 @@ class ArticleController extends Controller
         $article->author_id = 1;
         $article->category()->associate($category)->save();
         return redirect()->route('articles.show', ['article'=> $article->id]);
+    }
+
+    public function getArticle(Request $request) {
+        $name = $request->get('name');
+        $body = $request->get('body');
+
+        $articles = Article::where('name', 'like', "%{$name}%")
+                            ->where('body', 'like', "%{$body}%")
+                            ->get();
+
+        return Response::json([
+            'data' => $articles
+        ]);
     }
 }
