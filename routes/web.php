@@ -44,46 +44,49 @@ Route::group(['as' => 'users.',
     'where' => ['name' => '[A-Z a-z]+', 'image' => '[0-9]+']],
     function () {
 
-    Route::get('{name?}', function ($name = "Batman") {
-        return "Name: $name";
-    })->name('show');
+        Route::get('{name?}', function ($name = "Batman") {
+            return "Name: $name";
+        })->name('show');
 
-    Route::get('{name}/images/{image}', function ($name, $image) {
-        return "Name: $name<br>Image: $image";
-    })->name('images.show');
+        Route::get('{name}/images/{image}', function ($name, $image) {
+            return "Name: $name<br>Image: $image";
+        })->name('images.show');
 
-});
+    });
 
 
-Route::get('/aboutme', function() {
-    $name =  ["fullName" => "Ali Dali"];
-   return view('pages.about',$name);
+Route::get('/aboutme', function () {
+    $name = ["fullName" => "Ali Dali"];
+    return view('pages.about', $name);
 })->name('about.show');
 
-Route::get('/thingsiknow', function() {
+Route::get('/thingsiknow', function () {
     $items = ['Java', 'C#', 'PHP', 'Swift'];
     return view('pages.langs', compact('items'));
 })->name('langs.show');
 
-Route::get('/contact', function() {
+Route::get('/contact', function () {
 //    return view('pages.contact');
     return view('pages.contact')->with('email', 'ali.dali01@stclairconnect.ca');
 })->name('contact.show');
 
-Route::get('/articles', 'ArticleController@index')->name('articles.index');
-Route::get('/articles/create', 'ArticleController@create')->name('articles.create');
-Route::post('/articles/create', 'ArticleController@store')->name('articles.store');
-Route::get('/articles/{article}', 'ArticleController@show')->name('articles.show');
-Route::delete('/articles/{article}', 'ArticleController@destroy')->name('articles.destroy');
+//Route::get('/articles', 'ArticleController@index')->name('articles.index');
+//Route::get('/articles/create', 'ArticleController@create')->name('articles.create');
+//Route::post('/articles/create', 'ArticleController@store')->name('articles.store');
+//Route::get('/articles/{article}', 'ArticleController@show')->name('articles.show');
+//Route::delete('/articles/{article}', 'ArticleController@destroy')->name('articles.destroy');
 
-Route::get('/categories', 'CategoryController@index')->name('categories.index');
-Route::get('/categories/create', 'CategoryController@create')->name('categories.create');
-Route::post('/categories/create', 'CategoryController@store')->name('categories.store');
-Route::get('/categories/{id}', 'CategoryController@show')->name('categories.show');
-Route::get('/categories/{id}/edit', 'CategoryController@edit')->name('categories.edit');
-Route::patch('/categories/{id}', 'CategoryController@update')->name('categories.update');
-Route::delete('/categories/{id}', 'CategoryController@destroy')->name('categories.destroy');
+Route::resource('articles', 'ArticleController');
 
+//Route::get('/categories', 'CategoryController@index')->name('categories.index');
+//Route::get('/categories/create', 'CategoryController@create')->name('categories.create');
+//Route::post('/categories/create', 'CategoryController@store')->name('categories.store');
+//Route::get('/categories/{id}', 'CategoryController@show')->name('categories.show');
+//Route::get('/categories/{id}/edit', 'CategoryController@edit')->name('categories.edit');
+//Route::patch('/categories/{id}', 'CategoryController@update')->name('categories.update');
+//Route::delete('/categories/{id}', 'CategoryController@destroy')->name('categories.destroy');
+
+Route::resource('categories', 'CategoryController');
 
 Auth::routes();
 
