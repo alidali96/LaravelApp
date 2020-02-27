@@ -14,7 +14,7 @@
 {{--    <a class="btn btn-primary mt-2 col-1 float-right" href="{{route('articles.index')}}">Back</a>--}}
 
     <div class="float-right">
-        <a class="btn btn-danger text-light pr-4 pl-4" href="{{route('articles.index')}}">Back</a>
+        <a class="btn btn-primary text-light pr-4 pl-4" href="{{route('articles.index')}}">Back</a>
 {{--        <a class="btn btn-primary text-light pr-4 pl-4" href="{{route('articles.edit', $article)}}">Edit</a>--}}
     </div>
 @endsection

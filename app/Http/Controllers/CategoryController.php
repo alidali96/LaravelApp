@@ -7,7 +7,7 @@ use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller {
     public function __construct() {
-        $this->middleware('auth', ['only' => ['create', 'edit']]);
+        $this->middleware('auth', ['only' => ['create', 'edit', 'destroy']]);
     }
 
     public function index() {
@@ -37,6 +37,11 @@ class CategoryController extends Controller {
     public function update(CategoryRequest $request, $id) {
         $category = Category::findOrFail($id);
         $category->update($request->all());
+        return redirect('categories');
+    }
+
+    public function destroy(Category $category) {
+        $category->delete();
         return redirect('categories');
     }
 }

@@ -74,7 +74,7 @@ Route::get('/articles', 'ArticleController@index')->name('articles.index');
 Route::get('/articles/create', 'ArticleController@create')->name('articles.create');
 Route::post('/articles/create', 'ArticleController@store')->name('articles.store');
 Route::get('/articles/{article}', 'ArticleController@show')->name('articles.show');
-
+Route::delete('/articles/{article}', 'ArticleController@destroy')->name('articles.destroy');
 
 Route::get('/categories', 'CategoryController@index')->name('categories.index');
 Route::get('/categories/create', 'CategoryController@create')->name('categories.create');
@@ -82,7 +82,7 @@ Route::post('/categories/create', 'CategoryController@store')->name('categories.
 Route::get('/categories/{id}', 'CategoryController@show')->name('categories.show');
 Route::get('/categories/{id}/edit', 'CategoryController@edit')->name('categories.edit');
 Route::patch('/categories/{id}', 'CategoryController@update')->name('categories.update');
-
+Route::delete('/categories/{id}', 'CategoryController@destroy')->name('categories.destroy');
 
 
 Auth::routes();

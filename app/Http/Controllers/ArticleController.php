@@ -9,8 +9,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 
-class ArticleController extends Controller
-{
+class ArticleController extends Controller {
+
+    public function __construct() {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
 
     public function index() {
         $testing = "Passing data...";
@@ -38,16 +41,22 @@ class ArticleController extends Controller
         $article = new Article($request->all());
         $article->author_id = 1;
         $article->category()->associate($category)->save();
-        return redirect()->route('articles.show', ['article'=> $article->id]);
+        return redirect()->route('articles.show', ['article' => $article->id]);
     }
+
+    public function destroy($article) {
+        Article::destroy($article);
+        return \redirect('articles');
+    }
+
 
     public function getArticle(Request $request) {
         $name = $request->get('name');
         $body = $request->get('body');
 
         $articles = Article::where('name', 'like', "%{$name}%")
-                            ->where('body', 'like', "%{$body}%")
-                            ->get();
+            ->where('body', 'like', "%{$body}%")
+            ->get();
 
         return Response::json([
             'data' => $articles

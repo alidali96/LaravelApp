@@ -13,7 +13,14 @@
             <li class="list-group-item bg-dark text-light"><a class="text-danger text-decoration-none" style="font-size: 1.2em"
                     href="{{action('CategoryController@show', $category->id)}}">{{$category->name}}</a></li>
             <li class="list-group-item">{{$category->description}}</li>
-{{--            <li class="list-group-item"><small>Author: {{$category->author_id}}</small><a class="btn btn-success float-right" href="{{route('articles.show', $article->id)}}">Continue</a></li>--}}
+            <li class="list-group-item">
+                <a class="btn btn-success float-right" href="{{route('categories.show', $category->id)}}">Continue</a>
+                <form action="{{action('CategoryController@destroy', $category->id)}}" method="post">
+                    {{method_field('DELETE')}}
+                    {{csrf_field()}}
+                    <input type="submit" class="btn btn-danger float-right mr-1" href="{{route('categories.destroy', $category->id)}}" value="Delete" />
+                </form>
+            </li>
         </ul><br/>
     @endforeach
     {{$categories->links()}}
