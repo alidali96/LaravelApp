@@ -76,6 +76,10 @@ Route::get('/contact', function () {
 //Route::get('/articles/{article}', 'ArticleController@show')->name('articles.show');
 //Route::delete('/articles/{article}', 'ArticleController@destroy')->name('articles.destroy');
 
+Route::get('articles/manage', 'ArticleController@showDeleted');
+Route::get('articles/{article}/forceDelete', 'ArticleController@forceDelete');
+Route::get('articles/{article}/restore', 'ArticleController@restore');
+
 Route::resource('articles', 'ArticleController');
 
 //Route::get('/categories', 'CategoryController@index')->name('categories.index');
@@ -86,7 +90,14 @@ Route::resource('articles', 'ArticleController');
 //Route::patch('/categories/{id}', 'CategoryController@update')->name('categories.update');
 //Route::delete('/categories/{id}', 'CategoryController@destroy')->name('categories.destroy');
 
+Route::get('categories/manage', 'CategoryController@showDeleted');
+Route::get('categories/{category}/forceDelete', 'CategoryController@forceDelete');
+Route::get('categories/{category}/restore', 'CategoryController@restore');
+
 Route::resource('categories', 'CategoryController');
+
+
+
 
 Auth::routes();
 

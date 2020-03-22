@@ -41,7 +41,24 @@ class CategoryController extends Controller {
     }
 
     public function destroy(Category $category) {
+        $category->articles()->delete();
         $category->delete();
         return redirect('categories');
+    }
+
+    public function showDeleted() {
+        $categories = Category::onlyTrashed()->get();
+        return view('categories.manage', compact('categories'));
+    }
+
+    public function restore($category) {
+        Category::onlyTrashed()->where('id', $category)->restore();
+//        Category::findOrFail($category)->articles()->resotre();
+        return \redirect('categories');
+    }
+
+    public function forceDelete($category) {
+        Category::onlyTrashed()->where('id', $category)->forceDelete();
+        return \redirect('categories');
     }
 }

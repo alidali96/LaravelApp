@@ -49,6 +49,21 @@ class ArticleController extends Controller {
         return \redirect('articles');
     }
 
+    public function showDeleted() {
+        $articles = Article::onlyTrashed()->get();
+        return view('articles.manage', compact('articles'));
+    }
+
+    public function restore($article) {
+        Article::onlyTrashed()->where('id', $article)->restore();
+        return \redirect('articles');
+    }
+
+    public function forceDelete($article) {
+        Article::onlyTrashed()->where('id', $article)->forceDelete();
+        return \redirect('articles');
+    }
+
 
     public function getArticle(Request $request) {
         $name = $request->get('name');
