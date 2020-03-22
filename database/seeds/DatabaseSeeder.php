@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder {
 //        DB::table('categories')->truncate();
         DB::table('users')->truncate();
 
-//        $this->call(CategoriesTableSeeder::class);
+        $this->call(CategoriesTableSeeder::class);
         $this->call(ArticlesTableSeeder::class);
         $this->call(UserTableSeeder::class);
     }

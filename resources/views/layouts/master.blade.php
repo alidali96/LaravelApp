@@ -3,6 +3,7 @@
     <title>@yield('title', 'Laravel App')</title>
     <link type="text/css" rel="stylesheet" href="{{asset('css/app.css')}}"/>
     <link type="text/css" rel="stylesheet" href="{{asset('css/style.css')}}"/>
+    <script src="{{asset('js/app.js')}}"></script>
 </head>
 <body class=" text-dark">
 <header>
@@ -32,6 +33,10 @@
             {{--                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>--}}
             {{--            </form>--}}
         </div>
+
+        <span class="navbar-text">
+            Last posted article: {{ $lastPostedArticle }}<br>
+        </span>
     </nav>
 </header>
 
