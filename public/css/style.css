@@ -7,3 +7,14 @@
 a.text-decoration-none {
     text-decoration: none; !important;
 }
+
+.tag {
+    font-size: .7em;
+    margin-right: .5em;
+}
+
+.tag::before {
+    content: '#';
+}
+
+

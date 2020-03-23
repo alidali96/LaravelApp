@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Category;
+use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
@@ -29,18 +30,21 @@ class ArticleController extends Controller {
 
     public function create() {
         $categories = Category::all()->pluck('name', 'id');
-        return view('articles.create', compact('categories'));
+        $tags = Tag::all()->pluck('name', 'id');
+        return view('articles.create', compact('categories', 'tags'));
     }
 
     public function store(Request $request) {
+        // TODO: Create ArticleRequest
         $this->validate($request, [
             'name' => 'required',
-            'body' => 'required'
+            'body' => 'required',
         ]);
         $category = Category::findOrFail($request->category_id);
         $article = new Article($request->all());
         $article->author_id = 1;
         $article->category()->associate($category)->save();
+        $article->tags()->sync($request->tags);
         return redirect()->route('articles.show', ['article' => $article->id]);
     }
 

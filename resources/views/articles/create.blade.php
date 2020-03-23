@@ -6,6 +6,7 @@
     <h1 class="d-inline">Create New Article</h1>
 
     <form action="{{action('ArticleController@store')}}" method="post">
+        {{csrf_field()}}
         <div class="form-group mt-4">
             <label for="articleName">Article name</label>
             <input name="name" type="text" class="form-control" id="articleName" placeholder="Article name">
@@ -29,6 +30,14 @@
             <select class="form-control" id="category" name="category_id">
                 @foreach($categories as $id => $category)
                     <option value="{{$id}}">{{$category}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="tag">Tag</label>
+            <select multiple class="form-control" id="tag" name="tags[]">
+                @foreach($tags as $id => $tag)
+                    <option value="{{$id}}">{{$tag}}</option>
                 @endforeach
             </select>
         </div>
