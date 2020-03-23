@@ -15,6 +15,7 @@
             <li class="list-group-item">{{$category->description}}</li>
             <li class="list-group-item">
                 <a class="btn btn-success float-right" href="{{route('categories.show', $category->id)}}">Continue</a>
+                <a class="btn btn-primary float-right mr-1" href="{{route('categories.edit', $category->id)}}">Edit</a>
                 <form action="{{action('CategoryController@destroy', $category->id)}}" method="post">
                     {{method_field('DELETE')}}
                     {{csrf_field()}}
