@@ -19,7 +19,7 @@ class ArticleController extends Controller {
     public function index() {
         $testing = "Passing data...";
 //        $articles = DB::table('articles')->get();
-        $articles = Article::paginate(5);
+        $articles = Article::paginate(7);
         return view('articles.index', compact('articles'));
     }
 
