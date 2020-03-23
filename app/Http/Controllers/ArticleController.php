@@ -43,8 +43,15 @@ class ArticleController extends Controller {
         $category = Category::findOrFail($request->category_id);
         $article = new Article($request->all());
         $article->author_id = 1;
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $path = $request->image->storePublicly('articles/images', 'public');
+            $article->image = $path;
+        }
+
         $article->category()->associate($category)->save();
-        $article->tags()->sync($request->tags);
+        $article->tags()->sync($request->tags);     // sync after save
+
         return redirect()->route('articles.show', ['article' => $article->id]);
     }
 

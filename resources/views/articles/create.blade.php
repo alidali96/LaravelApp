@@ -5,7 +5,7 @@
 @section('content')
     <h1 class="d-inline">Create New Article</h1>
 
-    <form action="{{action('ArticleController@store')}}" method="post">
+    <form action="{{action('ArticleController@store')}}" method="post" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="form-group mt-4">
             <label for="articleName">Article name</label>
@@ -40,6 +40,10 @@
                     <option value="{{$id}}">{{$tag}}</option>
                 @endforeach
             </select>
+        </div>
+        <div class="custom-file mb-3">
+            <input type="file" class="custom-file-input" id="customFile" name="image" accept="image/*">
+            <label class="custom-file-label" for="customFile">Choose file</label>
         </div>
         <div class="float-right">
             <a class="btn btn-danger text-light" href="{{route('articles.index')}}">[x] Delete</a>

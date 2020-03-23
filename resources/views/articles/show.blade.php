@@ -6,7 +6,12 @@
     <h2>Article #{{$article->id}}</h2>
     <div class="card" style="font-size: 1.1em">
         <h3 class="card-header badge-dark">Name: {{$article->name}}</h3>
-        <p class="card-body badge-light">Body: {{$article->body}}</p>
+        <div class="card-body badge-light">
+            <p style="display: inline">Body: {{$article->body}}</p>
+            @if(isset($article->image))
+                <img class="float-right m-3" width="100" height="100" src="{{asset('storage')."/".$article->image}}"/>
+            @endif
+        </div>
         <small class="card-footer badge-secondary">Tags:
             @foreach($article->tags as $tag)
                 <small class="tag">{{$tag->name}}</small>
