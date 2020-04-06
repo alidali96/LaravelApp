@@ -18,4 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/articles', 'ArticleController@getArticle');
+//Route::get('/articles', 'ArticleController@getArticle');
+
+Route::group(['namespace' => 'Api', 'prefix' => 'v1'], function () {
+    Route::apiResource('articles', 'ArticleController');
+    Route::apiResource('categories', 'CategoryController');
+});
