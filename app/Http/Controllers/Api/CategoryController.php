@@ -29,7 +29,8 @@ class CategoryController extends Controller {
             return $query;
         });
 
-        return $query->orderBy($sortColumn, $sortDirection)->paginate(3);
+//        return $query->orderBy($sortColumn, $sortDirection)->paginate(3);
+        return CategoryResource::collection($query->orderBy($sortColumn, $sortDirection)->paginate(3));
     }
 
     /**
@@ -40,7 +41,18 @@ class CategoryController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(CategoryRequest $request) {
-        //
+        try {
+            $category = Category::create($request->all());
+        } catch (\Exception $e) {
+            return response()->json([
+                'errors' => [
+                    'title' => 'Could not create Category',
+                    'detail' => $e->getMessage(),
+                    'code' => 3,
+                ]
+            ], 400);
+        }
+        return new CategoryResource($category);
     }
 
     /**
@@ -51,7 +63,17 @@ class CategoryController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        $category = Category::findOrFail($id);
+        try {
+            $category = Category::findOrFail($id);
+        } catch (\Exception $e) {
+            return response()->json([
+                'errors' => [
+                    'title' => 'Could not find Category',
+                    'detail' => $e->getMessage(),
+                    'code' => 4,
+                ]
+            ], 404);
+        }
         return new CategoryResource($category);
     }
 
@@ -64,9 +86,19 @@ class CategoryController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(CategoryRequest $request, $id) {
-        $category = Category::findOrFail($id);
-        $category->update($request->all());
-        return $category;
+        try {
+            $category = Category::findOrFail($id);
+            $category->update($request->all());
+        } catch (\Exception $e) {
+            return response()->json([
+                'errors' => [
+                    'title' => 'Could not update Category',
+                    'detail' => $e->getMessage(),
+                    'code' => 2,
+                ]
+            ], 404);
+        }
+        return new CategoryResource($category);
     }
 
     /**
@@ -77,7 +109,19 @@ class CategoryController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        $category = Category::findOrFail($id);
-        $category->delete();
+        try {
+            $category = Category::findOrFail($id);
+            $category->delete();
+        }catch (\Exception $e) {
+            return response()->json([
+                'errors' => [
+                    'title' => 'Could not delete Category',
+                    'detail' => $e->getMessage(),
+                    'code' => 1,
+                ]
+            ], 404);
+        }
+
+        return response()->json(null,204);
     }
 }

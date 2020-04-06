@@ -29,7 +29,8 @@ class ArticleController extends Controller {
             return $query;
         });
 
-        return $query->orderBy($sortColumn, $sortDirection)->paginate(10);
+//        return $query->orderBy($sortColumn, $sortDirection)->paginate(10);
+        return ArticleResource::collection($query->orderBy($sortColumn, $sortDirection)->paginate(10));
     }
 
     /**
@@ -40,7 +41,19 @@ class ArticleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        //
+        try {
+            $article = Article::create($request->all());
+        } catch (\Exception $e) {
+            return response()->json([
+                'errors' => [
+                    'title' => 'Could not create Article',
+                    'detail' => $e->getMessage(),
+                    'code' => 3,
+                ]
+            ], 400);
+        }
+
+        return new ArticleResource($article);
     }
 
     /**
@@ -51,7 +64,17 @@ class ArticleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        $article = Article::findOrFail($id);
+        try {
+            $article = Article::findOrFail($id);
+        } catch (\Exception $e) {
+            return response()->json([
+                'errors' => [
+                    'title' => 'Could not find Article',
+                    'detail' => $e->getMessage(),
+                    'code' => 4,
+                ]
+            ], 404);
+        }
         return new ArticleResource($article);
     }
 
@@ -64,9 +87,20 @@ class ArticleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-        $article = Article::findOrFail($id);
-        $article->update($request->all());
-        return $article;
+        try {
+            $article = Article::findOrFail($id);
+            $article->update($request->all());
+        } catch (\Exception $e) {
+            return response()->json([
+                'errors' => [
+                    'title' => 'Could not update Article',
+                    'detail' => $e->getMessage(),
+                    'code' => 2,
+                ]
+            ], 404);
+        }
+
+        return new ArticleResource($article);
     }
 
     /**
@@ -77,7 +111,19 @@ class ArticleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        $article = Article::findOrFail($id);
-        $article->delete();
+        try {
+            $article = Article::findOrFail($id);
+            $article->delete();
+        } catch (\Exception $e) {
+            return response()->json([
+                'errors' => [
+                    'title' => 'Could not delete Article',
+                    'detail' => $e->getMessage(),
+                    'code' => 1,
+                ]
+            ], 404);
+
+            return response()->json(null, 204);
+        }
     }
 }

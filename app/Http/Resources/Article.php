@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Tag as TagResource;
 
 class Article extends JsonResource {
     /**
@@ -16,6 +17,7 @@ class Article extends JsonResource {
         return [
             'name' => $this->name,
             'body' => $this->body,
+            'tags' => TagResource::collection($this->tags),
         ];
     }
 }

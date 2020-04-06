@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Article as ArticleResource;
 
 class Category extends JsonResource {
     /**
@@ -16,6 +17,7 @@ class Category extends JsonResource {
         return [
             'name' => $this->name,
             'description' => $this->description,
+            'articles' => $this->when($request->get('include') == 'articles', ArticleResource::collection($this->articles)),
         ];
     }
 }
