@@ -3,52 +3,67 @@
 namespace App\Http\Controllers\Api;
 
 use App\Category;
+use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Category as CategoryResource;
 
-class CategoryController extends Controller
-{
+class CategoryController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return Category::all();
+    public function index(Request $request) {
+        $sortColumn = $request->input('sort', 'id');
+        $sortDirection = starts_with($sortColumn, '-') ? 'desc' : 'asc';
+        $sortColumn = ltrim($sortColumn, '-');
+
+        $query = Category::query();
+        $query->when($request->filled('filter'), function ($query) {
+            $filters = explode(',', request('filter'));
+            foreach ($filters as $filter) {
+                [$criteria, $value] = explode(':', $filter);
+                $query->where($criteria, $value);
+            }
+            return $query;
+        });
+
+        return $query->orderBy($sortColumn, $sortDirection)->paginate(3);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(CategoryRequest $request) {
         //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        return Category::findOrFail($id);
+    public function show($id) {
+        $category = Category::findOrFail($id);
+        return new CategoryResource($category);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(CategoryRequest $request, $id) {
         $category = Category::findOrFail($id);
         $category->update($request->all());
         return $category;
@@ -57,11 +72,11 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         $category = Category::findOrFail($id);
         $category->delete();
     }
