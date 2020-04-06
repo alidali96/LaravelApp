@@ -9,6 +9,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Category as CategoryResource;
 
 class CategoryController extends Controller {
+
+    public function __construct() {
+        $this->middleware('auth:api', ['except' => ['index', 'show']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *

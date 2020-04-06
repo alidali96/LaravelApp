@@ -8,6 +8,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Article as ArticleResource;
 
 class ArticleController extends Controller {
+
+    public function __construct() {
+        $this->middleware('auth:api', ['except' => ['index', 'show']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
